@@ -25,6 +25,10 @@ var corsConfig = {
 }
 
 app.post('/', cors(corsConfig), function (req, res) {
+  if (!req.body.email) {
+    res.status(204).send();
+    return;
+  }
   var col = db.collection('emails');
   col.insert({
       email: req.body.email, created_on: new Date().getTime()
